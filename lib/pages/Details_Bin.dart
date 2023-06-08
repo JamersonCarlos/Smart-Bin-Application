@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class DetailsBin extends StatefulWidget {
-  DetailsBin({super.key, required this.index});
-  final int index;
+  const DetailsBin({super.key, required this.bin});
+  final Map<String, dynamic> bin;
 
   @override
   State<DetailsBin> createState() => _DetailsBinState();
@@ -16,13 +16,14 @@ class _DetailsBinState extends State<DetailsBin> {
         backgroundColor: const Color(0xFF1A7DA1),
         centerTitle: true,
         title: Text(
-          'Lixeira ${widget.index + 1}',
+          'Lixeira ${widget.bin['identidade']}',
           style: const TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,
             fontSize: 30,
           ),
         ),
+        
       ),
       body: Padding(
         padding: const EdgeInsets.only(right: 30, left: 30, top: 20),
@@ -30,25 +31,25 @@ class _DetailsBinState extends State<DetailsBin> {
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'Setor: Administrativo',
-              style: TextStyle(
+            Text(
+              'Setor: ${widget.bin['setor']}',
+              style: const TextStyle(
                 color: Colors.black,
                 fontWeight: FontWeight.bold,
                 fontSize: 25,
               ),
             ),
-            const Text(
-              'Localização: Sala do Diretor',
-              style: TextStyle(
+            Text(
+              'Localização: ${widget.bin['localização']}',
+              style: const TextStyle(
                 color: Colors.black,
                 fontWeight: FontWeight.bold,
                 fontSize: 25,
               ),
             ),
-            const Text(
-              'Capacidade: 22 litros',
-              style: TextStyle(
+            Text(
+              'Capacidade: ${widget.bin['capacidade_litros']} litros',
+              style: const TextStyle(
                 color: Colors.black,
                 fontWeight: FontWeight.bold,
                 fontSize: 25,
@@ -68,7 +69,10 @@ class _DetailsBinState extends State<DetailsBin> {
                     padding: const EdgeInsets.only(bottom: 12),
                     child: Container(
                       width: 168,
-                      height: 200 * 0.5,
+                      height: 200 *
+                          double.parse((widget.bin['altura_lixo'] /
+                                  widget.bin['altura_cm'])
+                              .toString()),
                       decoration: const BoxDecoration(
                         color: Color(0xFF775F19),
                         borderRadius: BorderRadius.only(
@@ -76,10 +80,13 @@ class _DetailsBinState extends State<DetailsBin> {
                           bottomLeft: Radius.circular(5),
                         ),
                       ),
-                      child: const Center(
+                      child: Center(
                           child: Text(
-                        '50%',
-                        style: TextStyle(
+                        ((widget.bin['altura_lixo'] / widget.bin['altura_cm']) *
+                                    100)
+                                .toStringAsFixed(2) +
+                            '%',
+                        style: const TextStyle(
                           color: Colors.white,
                           fontSize: 20,
                         ),
