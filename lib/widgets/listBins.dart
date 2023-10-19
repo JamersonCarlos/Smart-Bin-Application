@@ -102,7 +102,11 @@ class _ListBinsState extends State<ListBins> {
             ),
           );
         } else {
-          return const CircularProgressIndicator();
+          return const Center(
+              child: CircularProgressIndicator(
+            strokeWidth: 5,
+            backgroundColor: Colors.grey,
+          ));
         }
       },
     );

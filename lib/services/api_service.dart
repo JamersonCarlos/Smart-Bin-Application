@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 
 class ApiService {
   final dio = Dio();
-  final String baseUrl = "http://192.168.0.109:3000/";
+  final String baseUrl = "https://smart-bin-22ac8d4ed155.herokuapp.com/";
 
   Future<List<dynamic>> getAllBins() async {
     final result = await dio.get("${baseUrl}allbins");
